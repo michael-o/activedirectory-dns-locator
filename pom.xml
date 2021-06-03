@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright 2016–2021 Michael Osipov
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.sf.michael-o</groupId>
+		<artifactId>michael-o-parent</artifactId>
+		<version>15</version>
+	</parent>
+
+	<artifactId>activedirectory-dns-locator</artifactId>
+	<version>0.4.0-SNAPSHOT</version>
+
+	<name>Active Directory DNS Locator</name>
+	<description>A locator for various Active Directory services like LDAP, Global Catalog, Kerberos, etc. via DNS SRV resource records.</description>
+	<url>https://michael-o.github.io/activedirectory-dns-locator/</url>
+	<inceptionYear>2016</inceptionYear>
+
+	<scm>
+		<connection>scm:git:https://github.com/michael-o/activedirectory-dns-locator.git</connection>
+		<developerConnection>scm:git:https://github.com/michael-o/activedirectory-dns-locator.git</developerConnection>
+		<url>https://github.com/michael-o/activedirectory-dns-locator</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/michael-o/activedirectory-dns-locator/issues</url>
+	</issueManagement>
+
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<url>scm:git:https://github.com/michael-o/activedirectory-dns-locator.git</url>
+		</site>
+	</distributionManagement>
+
+	<properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.11</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<defaultGoal>package</defaultGoal>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>delete-dependency-reduced-pom</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<filesets>
+								<filesets>
+									<directory>${basedir}</directory>
+									<includes>
+										<include>dependency-reduced-pom.xml</include>
+									</includes>
+								</filesets>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<includes>
+									<include>org.apache.commons:commons-lang3</include>
+								</includes>
+							</artifactSet>
+							<filters>
+								<filter>
+									<artifact>org.apache.commons:commons-lang3</artifact>
+									<includes>
+										<include>org/apache/commons/lang3/Validate.class</include>
+									</includes>
+								</filter>
+							</filters>
+							<relocations>
+								<relocation>
+									<pattern>org.apache.commons.lang3</pattern>
+									<shadedPattern>net.sf.michaelo.activedirectory.internal.org.apache.commons.lang3</shadedPattern>
+								</relocation>
+							</relocations>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-site-resources</id>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.parent.groupId}</groupId>
+									<artifactId>${project.parent.artifactId}</artifactId>
+									<version>${project.parent.version}</version>
+									<classifier>site-resources</classifier>
+									<type>zip</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/site</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<locale>en</locale>
+				</configuration>
+			</plugin>
+		 </plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<locale>en</locale>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>

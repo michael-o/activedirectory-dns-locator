@@ -1,0 +1,69 @@
+#*
+ * Copyright 2013–2021 Michael Osipov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+
+                            ----------------------
+                            Using DirContextSource
+                            ----------------------
+                               Michael Osipov
+                            ----------------------
+                                 2013-01-13
+                            ----------------------
+
+#set($ellipsis = $esc.unicode('\u2026'))
+
+Using ActiveDirectoryDnsLocator
+
+  This user guide is comprised of two examples of the <<<ActiveDirectoryDnsLocator>>>.
+
+    Contents:
+
+%{toc|fromDepth=2}
+
+* Basic Example
+
+  In few lines you have a usable <<<ActiveDirectoryDnsLocator>>>:
+
++----------------------------
+import net.sf.michaelo.activedirectory.ActiveDirectoryDnsLocator;
+import javax.naming.directory.DirContext;
+[$ellipsis]
+ActiveDirectoryDnsLocator.Builder builder = new ActiveDirectoryDnsLocator.Builder();
+ActiveDirectoryDnsLocator locator = builder.build();
+// try and catch block omitted for the sake of brevity,
+// handle NamingException appropriately
+HostPort[] hostPorts = locator.locate("ldap", "ad.example.com");
+[$ellipsis]
++----------------------------
+
+* Advanced Example
+
+  A more complex example includes several configuration options as described in
+  the builder's {{{./apidocs/net/sf/michaelo/activedirectory/ActiveDirectoryDnsLocator.Builder.html}Javadoc}}:
+
++----------------------------
+import net.sf.michaelo.activedirectory.ActiveDirectoryDnsLocator;
+import javax.naming.directory.DirContext;
+ActiveDirectoryDnsLocator.Builder builder = new ActiveDirectoryDnsLocator.Builder();
+// Make it fail fast
+builder.additionalProperty("com.sun.jndi.dns.timeout.initial", "200")
+       .additionalProperty("com.sun.jndi.dns.timeout.retries", "2");
+
+ActiveDirectoryDnsLocator locator = builder.build();
+// try and catch block omitted for the sake of brevity,
+// handle NamingException appropriately
+HostPort[] hostPorts = locator.locate("kerberos", "debln-01", "ad.example.com");
+[$ellipsis]
++----------------------------

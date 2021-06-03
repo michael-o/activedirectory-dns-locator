@@ -1,0 +1,93 @@
+#*
+ * Copyright 2021 Michael Osipov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+
+                            ----------------------
+                         Using DirContextSourceFactory
+                            ----------------------
+                               Michael Osipov
+                            ----------------------
+                                 2021-06-03
+                            ----------------------
+
+#set($ellipsis = $esc.unicode('\u2026'))
+
+Using ActiveDirectoryLdapDnsProvider
+
+    [Attention] Contrary to previous statements, this library has to reside in the <<system>>
+                classpath to work properly and requires at least Java 8u272 or Java 11.0.9,
+                Java 12+ requires a different interface and can be found in the <<<java12>>> branch.
+
+* Usage Examples
+
+  No configuration is necessary, it will be autodiscovered through Java's <<<ServiceLoader>>>.
+  For the ease of use for these examples use my {{{https://michael-o.github.io/dirctxsrc/}<<<DirContextSource>>>}},
+  but you can go with plain JNDI if you prefer.
+
+** With Java
+
+  In few lines you have a usable <<<DirContextSource>>>:
+
++----------------------------
+import net.sf.michaelo.dirctxsrc.DirContextSource;
+import javax.naming.directory.DirContext;
+[$ellipsis]
+DirContextSource.Builder builder = new DirContextSource.Builder("ldap://domain-name");
+// Set the Active Directory site
+builder.additionalProperty("net.sf.michaelo.activedirectory.site", "debln-01");
+// Make it fail fast
+builder.additionalProperty("dns.com.sun.jndi.dns.timeout.initial", "200")
+       .additionalProperty("dns.com.sun.jndi.dns.timeout.retries", "2");
+DirContextSource contextSource = builder.build();
+// try and catch block omitted for the sake of brevity,
+// handle NamingException appropriately
+DirContext context = contextSource.getDirContext();
+// Perform operations
+context.close();
+[$ellipsis]
++----------------------------
+
+** With a Servlet Container (Apache Tomcat)
+
+  Navigate in your <<<server.xml>>> to <<</Server/GlobalNamingResources>>> and
+  add the following element:
+
++----------------------------
+[$ellipsis]
+<GlobalNamingResources>
+  <!-- Add this -->
+  <Resource name="ldap/name" type="net.sf.michaelo.dirctxsrc.DirContextSource"
+    factory="net.sf.michaelo.dirctxsrc.DirContextSourceFactory"
+    urls="ldap://domain-name"
+    additionalProperties="net.sf.michaelo.activedirectory.site=debln-01;dns.com.sun.jndi.dns.timeout.initial=200;dns.com.sun.jndi.dns.timeout.retries=2" />
+</GlobalNamingResources>
+[$ellipsis]
++----------------------------
+
+  This resource still needs to be linked to your application. Open or create your
+  app's <<<context.xml>>> and add:
+
++----------------------------
+<Context>
+[$ellipsis]
+  <!-- Add this -->
+  <ResourceLink global="ldap/name" name="ldap/localName"
+    type="net.sf.michaelo.dirctxsrc.DirContextSource" />
+[$ellipsis]
+</Context>
++----------------------------
+
+  Now you have successfully linked a global resource to your webapp. It is now
+  ready to use.

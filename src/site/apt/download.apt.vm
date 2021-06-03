@@ -1,0 +1,46 @@
+#*
+ * Copyright 2021 Michael Osipov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+
+                            ----------------------
+                                   Download
+                            ----------------------
+                                Michael Osipov
+                            ----------------------
+                                 2021-06-03
+                            ----------------------
+
+Download ${project.name}
+
+  There are several ways to download the JAR of this project.
+
+* Obtaining Binaries
+
+ The preferred way to obtain this artifact is through dependency management.
+ It is available, along with its sources and Javadoc JARs, in the
+ {{{https://search.maven.org/#search|ga|1|g%3A%22${project.groupId}%22%20AND%20a%3A%22${project.artifactId}%22%20AND%20v%3A%22${project.version}%22}Maven Central}} repository.
+ See the {{{./dependency-info.html}dependency information}} report for further
+ integration details for your build tool of choice.
+
+* Building from Source
+
+  If you rather prefer building from source you either have to check out a working
+  copy from the project's public {{{./scm.html}repository}},
+  or download a {{{https://github.com/michael-o/activedirectory-dns-locator/archive/refs/tags/${project.version}.zip}source ZIP file}} from GitHub.
+
+  After you have obtained the source code, navigate to the source code directory
+  and type <<<mvn install>>>. Prior to that, make sure that you have at least Maven
+  $context.get("maven.version") and Java $context.get("maven.compiler.target") installed.
+  After successful execution the artifact will be installed to your local repository.

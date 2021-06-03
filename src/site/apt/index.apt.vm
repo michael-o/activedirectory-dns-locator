@@ -1,0 +1,51 @@
+#*
+ * Copyright 2021 Michael Osipov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+
+                            ----------------------
+                                   Overview
+                            ----------------------
+                                Michael Osipov
+                            ----------------------
+                                 2021-06-03
+                            ----------------------
+
+About ${project.name}
+
+  ${project.description}
+
+  It is meant to easily locate servers with the domain or forest name only without
+  ever having to hard code any hostnames. A builder class with a fluent API supports you
+  to construct an <<<ActiveDirectoryDnsLocator>>> to locate host/port pairs with.
+  Moreover, it plugs into the JNDI/LDAP Service Provider automatically with zero
+  configuration.
+
+* Getting Started
+
+  {{{./download.html}Download}} the artifact, read the {{{./user-guide.html}user guide}}
+  and get started.
+
+* Origin of this Project
+
+  I was working with directory servers, Active Directory specifically, in many
+  projects in my company for several years now and was tired of configuring
+  hard coded hostnames which fail or vanish over and over again. For the time being
+  I patched internal JDK code to discover servers automatically, but this wasn't something
+  one can offer publically. Finally, I have filed {{{https://bugs.openjdk.java.net/browse/JDK-8160768}JDK-8160768}}
+  and {{{https://bugs.openjdk.java.net/browse/JDK-8161361}JDK-8161361}}, and they
+  were solved after years of waiting. This project is now the result of the provided
+  solution. This library has been in production in several projects, e.g., directly
+  within Apache Tomcat or the Spring Framework, for several years now \u2013 with great
+  success.
