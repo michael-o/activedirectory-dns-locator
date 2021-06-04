@@ -24,7 +24,7 @@
 	</parent>
 
 	<artifactId>activedirectory-dns-locator</artifactId>
-	<version>0.4.0</version>
+	<version>0.4.1-SNAPSHOT</version>
 
 	<name>Active Directory DNS Locator</name>
 	<description>A locator for various Active Directory services like LDAP, Global Catalog, Kerberos, etc. via DNS SRV resource records.</description>
