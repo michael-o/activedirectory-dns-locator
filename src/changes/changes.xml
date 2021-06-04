@@ -4,7 +4,7 @@
 						http://maven.apache.org/xsd/changes-1.0.0.xsd">
 
 	<body>
-		<release version="0.4.0-SNAPSHOT" date="TBD" description="First public release">
+		<release version="0.4.0" date="2021-06-04" description="First public release">
 			<action type="add" dev="michael-o">Initial import</action>
 		</release>
 	</body>
