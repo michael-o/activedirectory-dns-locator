@@ -27,8 +27,9 @@
 Using ActiveDirectoryLdapDnsProvider
 
     [Attention] Contrary to previous statements, this library must reside in the <<system>>
-                classpath to work properly and requires at least Java 8u272, Java 11.0.9, or
-                Java 12+. It is a multi-release JAR because of changing interfaces between releases.
+                classpath for this provider to work properly and requires at least Java 8u272,
+                Java 11.0.9, or Java 12+. It is a multi-release JAR because of changing
+                interfaces between Java releases.
 
 * Usage Examples
 
