@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-   Copyright 2016–2021 Michael Osipov
+   Copyright 2016–2025 Michael Osipov
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@
 	<parent>
 		<groupId>net.sf.michael-o</groupId>
 		<artifactId>michael-o-parent</artifactId>
-		<version>15</version>
+		<version>20</version>
 	</parent>
 
 	<artifactId>activedirectory-dns-locator</artifactId>
 	<version>0.4.1-SNAPSHOT</version>
 
-	<name>Active Directory DNS Locator</name>
+	<name>Active Directory DNS Locator (retired)</name>
 	<description>A locator for various Active Directory services like LDAP, Global Catalog, Kerberos, etc. via DNS SRV resource records.</description>
 	<url>https://michael-o.github.io/activedirectory-dns-locator/</url>
 	<inceptionYear>2016</inceptionYear>
@@ -35,8 +35,8 @@
 		<connection>scm:git:https://github.com/michael-o/activedirectory-dns-locator.git</connection>
 		<developerConnection>scm:git:https://github.com/michael-o/activedirectory-dns-locator.git</developerConnection>
 		<url>https://github.com/michael-o/activedirectory-dns-locator</url>
-	  <tag>0.4.0</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<issueManagement>
 		<system>GitHub</system>
@@ -215,7 +215,7 @@
 					<locale>en</locale>
 				</configuration>
 			</plugin>
-		 </plugins>
+		</plugins>
 	</build>
 
 	<reporting>

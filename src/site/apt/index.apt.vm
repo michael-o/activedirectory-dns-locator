@@ -1,5 +1,5 @@
 #*
- * Copyright 2021 Michael Osipov
+ * Copyright 2021–2025 Michael Osipov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,9 @@
 About ${project.name}
 
   ${project.description}
+
+    [Important] This project has been retired in favor of
+                {{{https://michael-o.github.io/active-directory-dc-locator/}Active Directory DC Locator}}.
 
   It is meant to easily locate servers with the domain or forest name only without
   ever having to hard code any hostnames. A builder class with a fluent API supports you
